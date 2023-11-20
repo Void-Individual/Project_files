@@ -1,0 +1,2 @@
+###
+- This folder will contain projects that I have decided to undertake with some guidance fromazeez and Bolu, although there is a possibility that Bolu might just lead me on an impossible goose chase... lol
