@@ -7,7 +7,7 @@
 
 void input(void)
 {
-	char *ch = NULL, token, **cmd;
+	char *ch = NULL, *token, **cmd;
 	size_t count = 0, read;
 	int num = 0;
 
@@ -22,7 +22,7 @@ void input(void)
 	}
 	ch[count++] = '\0';
 
-	if (strcmp(*ch, "quit") == 0)
+	if (strcmp(ch, "quit") == 0)
 	{
 		printf("CLosing...");
 		free(ch);
@@ -36,5 +36,6 @@ void input(void)
 		num++;
 	}
 
+	cmd[num] = "NULL";
 	exec(cmd);
 }
