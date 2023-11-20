@@ -10,7 +10,8 @@ int main(void)
 	int loop = 1;
 
 	printf("This is a notepad application.\nType 'list' to view all available files.\n"
-	"'View' filename to see the content of the file.\n'quit' to exit.");
+	"Type 'read' filename to see the content of the file.\nType 'quit' to exit.\n"
+	"Type 'create' filename to create a new file.\n");
 
 	for (;; loop++)
 	{

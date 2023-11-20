@@ -7,35 +7,36 @@
 
 void input(void)
 {
-	char *ch = NULL, *token, **cmd;
+	char *cmd = NULL, *token, **args;
 	size_t count = 0, read;
 	int num = 0;
 
 	printf("(Notepad: )");
 
-	read = getline(&ch, &count, stdin);
+	read = getline(&cmd, &count, stdin);
 	if (read == 0 || read == -1)
 	{
 		printf("Please input a valid command\n");
-		free(ch);
+		free(cmd);
 		return;
 	}
-	ch[count++] = '\0';
-
-	if (strcmp(ch, "quit") == 0)
+	cmd[read - 1] = '\0';
+	if (strcmp(cmd, "quit") == 0)
 	{
 		printf("CLosing...");
-		free(ch);
+		free(cmd);
 		exit(0);
 	}
-	token = strtok(ch, " ");
+	token = strtok(cmd, " ");
 	while (token != NULL)
 	{
-		cmd[num] = token;
+		args[num] = token;
 		token = strtok(NULL, " ");
 		num++;
 	}
 
-	cmd[num] = "NULL";
-	exec(cmd);
+	args[num] = "NULL";
+	exec(cmd, args);
+	free(args);
+	free(cmd);
 }
