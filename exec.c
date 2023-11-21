@@ -13,7 +13,79 @@ void list(char *cmd, char **arg)
 
 	if (execve(run[0], run, NULL) == -1)
 	{
-		perror("execve error");
+		free(cmd);
+		free(arg);
+		kill(getpid(), SIGTERM);
+	}
+
+}
+
+/**
+ * create - function to create a new file
+ * @cmd: has to be freed
+ * @rg: has to be freed
+ * Return: empty
+*/
+
+void create(char *cmd, char **arg)
+{
+	char run[] = NULL;
+
+	run[0] = "/bin/touch";
+	run[1] = arg[1];
+
+	if (execve(run[0], run, NULL) == -1)
+	{
+		printf("To create a new file, input 'new' followed by a single filename with no spaces.\n");
+		free(cmd);
+		free(arg);
+		kill(getpid(), SIGTERM);
+	}
+}
+
+
+
+/**
+ * del - function to delete a file
+ * @cmd: has to be freed
+ * @rg: has to be freed
+ * Return: empty
+*/
+
+void del(char *cmd, char **arg)
+{
+	char run[] = NULL;
+
+	run[0] = "/bin/rm";
+	run[1] = arg[1];
+
+	if (execve(run[0], run, NULL) == -1)
+	{
+		printf("To delete a file, input 'delete' followed by a single filename with no spaces.\n");
+		free(cmd);
+		free(arg);
+		kill(getpid(), SIGTERM);
+	}
+
+}
+
+/**
+ * read - function to read the content of a file
+ * @cmd: has to be freed
+ * @rg: has to be freed
+ * Return: empty
+*/
+
+void read(char *cmd, char **arg)
+{
+	char run[] = NULL;
+
+	run[0] = "/bin/cat";
+	run[1] = arg[1];
+
+	if (execve(run[0], run, NULL) == -1)
+	{
+		printf("To check the content of a file, input 'view' followed by a single filename with no spaces.\n");
 		free(cmd);
 		free(arg);
 		kill(getpid(), SIGTERM);
@@ -35,10 +107,7 @@ void exec( char *cmd, char **arg)
 
 	child = fork();
 	if (child == -1)
-	{
-		perror("Fork error");
 		return;
-	}
 	if (child > 0)
 		wait(&status);
 
@@ -46,5 +115,14 @@ void exec( char *cmd, char **arg)
 	{
 		if (strcmp(arg[0], "list") == 0)
 			list(cmd, arg);
+		if (strcmp(arg[0], "new") == 0)
+			create(cmd, arg);
+		if (strcmp(arg[0], "delete") == 0)
+			del(cmd, arg);
+		if (strcmp(arg[0], "view") == 0)
+			read(cmd, arg);
+
+		printf("Please input a valid command :)\n");
+		kill(getpid(), SIGTERM);
 	}
 }

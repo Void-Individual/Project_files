@@ -25,7 +25,6 @@ void input(void)
 	args = malloc(sizeof(char *) * 1024);
 	if (args == NULL)
 	{
-		perror("Malloc error");
 		free(args);
 		free(cmd);
 		return;
