@@ -7,7 +7,7 @@
 
 void input(void)
 {
-	char *cmd = NULL, *token, **args;
+	char *cmd = NULL, *token = NULL, **args;
 	size_t count = 0, read;
 	int num = 0;
 
@@ -20,7 +20,16 @@ void input(void)
 		free(cmd);
 		return;
 	}
+
 	cmd[read - 1] = '\0';
+	args = malloc(sizeof(char *) * 1024);
+	if (args == NULL)
+	{
+		perror("Malloc error");
+		free(args);
+		free(cmd);
+		return;
+	}
 	if (strcmp(cmd, "quit") == 0)
 	{
 		printf("CLosing...");
@@ -28,7 +37,7 @@ void input(void)
 		exit(0);
 	}
 	token = strtok(cmd, " ");
-	while (token != NULL)
+	while (token)
 	{
 		args[num] = token;
 		token = strtok(NULL, " ");

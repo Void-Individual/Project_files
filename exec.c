@@ -15,7 +15,7 @@ void exec( char *cmd, char **arg)
 	if (strcmp(arg[0], "create") == 0)
 		arg[0] = "/bin/touch";
 	if (strcmp(arg[0], "list") == 0)
-		arg[0] = "/bin/ls -1";
+		arg[0] = "/bin/ls, -1";
 	if (strcmp(arg[0], "delete") == 0)
 		arg[0] = "/bin/rm";
 	if (strcmp(arg[0], "read") == 0)
@@ -27,15 +27,13 @@ void exec( char *cmd, char **arg)
 		return;
 	}
 	if (child > 0)
-	{
-		printf("Loading...\n");
-		sleep(1);
 		wait(&status);
-	}
+
 	if (child == 0)
 	{
 		if (execve(arg[0], arg, NULL) == -1)
 		{
+			printf("Invalid command: %s, execve error\n", *arg);
 			perror("execve error");
 			free(cmd);
 			free(arg);
