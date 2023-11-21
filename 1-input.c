@@ -32,7 +32,7 @@ void input(void)
 	}
 	if (strcmp(cmd, "quit") == 0)
 	{
-		printf("CLosing...");
+		printf("CLosing...\n");
 		free(cmd);
 		exit(0);
 	}
@@ -44,7 +44,6 @@ void input(void)
 		num++;
 	}
 
-	args[num] = "NULL";
 	exec(cmd, args);
 	free(args);
 	free(cmd);
