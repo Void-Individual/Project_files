@@ -29,11 +29,10 @@ void list(char *cmd, char **arg)
 
 void create(char *cmd, char **arg)
 {
-	char **run;
-	char str = *arg[1];
+	char **run = malloc(sizeof(char *) * (strlen(arg[1]) + 1));
 
 	run[0] = "/bin/touch";
-	*run[1] = str;
+	strcpy(run[1], arg[1]);
 	run[2] = NULL;
 
 	if (execve(run[0], run, NULL) == -1)
@@ -56,11 +55,10 @@ void create(char *cmd, char **arg)
 
 void del(char *cmd, char **arg)
 {
-	char **run;
-	char str = *arg[1];
+	char **run = malloc(sizeof(char *) * (strlen(arg[1]) + 1));
 
 	run[0] = "/bin/rm";
-	*run[1] = str;
+	strcpy(run[1], arg[1]);
 	run[2] = NULL;
 
 	if (execve(run[0], run, NULL) == -1)
@@ -82,12 +80,10 @@ void del(char *cmd, char **arg)
 
 void view(char *cmd, char **arg)
 {
-	char **run;
-	char str = *arg[1];
+	char **run = malloc(sizeof(char *) * (strlen(arg[1]) + 1));
 
 	run[0] = "/bin/cat";
-	*run[1] = str;
-	printf("%s\n", str);
+	strcpy(run[1], arg[1]);
 	run[2] = NULL;
 
 	if (execve(run[0], run, NULL) == -1)
