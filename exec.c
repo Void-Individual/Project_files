@@ -9,7 +9,7 @@
 
 void list(char *cmd, char **arg)
 {
-	char *run[] = {"/bin/ls", "-l", NULL};
+	char *run[] = {"/bin/ls", "-1", NULL};
 
 	if (execve(run[0], run, NULL) == -1)
 	{
@@ -29,10 +29,12 @@ void list(char *cmd, char **arg)
 
 void create(char *cmd, char **arg)
 {
-	char run[] = NULL;
+	char **run;
+	char str = *arg[1];
 
 	run[0] = "/bin/touch";
-	run[1] = arg[1];
+	*run[1] = str;
+	run[2] = NULL;
 
 	if (execve(run[0], run, NULL) == -1)
 	{
@@ -54,10 +56,12 @@ void create(char *cmd, char **arg)
 
 void del(char *cmd, char **arg)
 {
-	char run[] = NULL;
+	char **run;
+	char str = *arg[1];
 
 	run[0] = "/bin/rm";
-	run[1] = arg[1];
+	*run[1] = str;
+	run[2] = NULL;
 
 	if (execve(run[0], run, NULL) == -1)
 	{
@@ -70,18 +74,21 @@ void del(char *cmd, char **arg)
 }
 
 /**
- * read - function to read the content of a file
+ * view - function to read the content of a file
  * @cmd: has to be freed
  * @rg: has to be freed
  * Return: empty
 */
 
-void read(char *cmd, char **arg)
+void view(char *cmd, char **arg)
 {
-	char run[] = NULL;
+	char **run;
+	char str = *arg[1];
 
 	run[0] = "/bin/cat";
-	run[1] = arg[1];
+	*run[1] = str;
+	printf("%s\n", str);
+	run[2] = NULL;
 
 	if (execve(run[0], run, NULL) == -1)
 	{
@@ -120,7 +127,7 @@ void exec( char *cmd, char **arg)
 		if (strcmp(arg[0], "delete") == 0)
 			del(cmd, arg);
 		if (strcmp(arg[0], "view") == 0)
-			read(cmd, arg);
+			view(cmd, arg);
 
 		printf("Please input a valid command :)\n");
 		kill(getpid(), SIGTERM);
