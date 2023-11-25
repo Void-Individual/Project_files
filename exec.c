@@ -29,13 +29,9 @@ void list(char *cmd, char **arg)
 
 void create(char *cmd, char **arg)
 {
-	char **run = malloc(sizeof(char *) * (strlen(arg[1]) + 1));
+	arg[0] = "/bin/touch";
 
-	run[0] = "/bin/touch";
-	strcpy(run[1], arg[1]);
-	run[2] = NULL;
-
-	if (execve(run[0], run, NULL) == -1)
+	if (execve(arg[0], arg, NULL) == -1)
 	{
 		printf("To create a new file, input 'new' followed by a single filename with no spaces.\n");
 		free(cmd);
@@ -55,13 +51,9 @@ void create(char *cmd, char **arg)
 
 void del(char *cmd, char **arg)
 {
-	char **run = malloc(sizeof(char *) * (strlen(arg[1]) + 1));
+	arg[0] = "/bin/rm";
 
-	run[0] = "/bin/rm";
-	strcpy(run[1], arg[1]);
-	run[2] = NULL;
-
-	if (execve(run[0], run, NULL) == -1)
+	if (execve(arg[0], arg, NULL) == -1)
 	{
 		printf("To delete a file, input 'delete' followed by a single filename with no spaces.\n");
 		free(cmd);
@@ -80,13 +72,9 @@ void del(char *cmd, char **arg)
 
 void view(char *cmd, char **arg)
 {
-	char **run = malloc(sizeof(char *) * (strlen(arg[1]) + 1));
+	arg[0] = "/bin/cat";
 
-	run[0] = "/bin/cat";
-	strcpy(run[1], arg[1]);
-	run[2] = NULL;
-
-	if (execve(run[0], run, NULL) == -1)
+	if (execve(arg[0], arg, NULL) == -1)
 	{
 		printf("To check the content of a file, input 'view' followed by a single filename with no spaces.\n");
 		free(cmd);
